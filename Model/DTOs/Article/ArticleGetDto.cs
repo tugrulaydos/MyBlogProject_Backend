@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Model.DTOs.Category;
+using Model.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +15,9 @@ namespace Model.DTOs.Article
         public string Title { get; set; }
 
         public int CategoryId { get; set; } 
-        
+
+        public CategoryGetDto Category { get; set; }
+
         public int ImageId { get; set; }       
 
 
