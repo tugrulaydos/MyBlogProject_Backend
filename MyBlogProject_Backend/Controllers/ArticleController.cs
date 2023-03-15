@@ -42,7 +42,7 @@ namespace MyBlogProject_Backend.Controllers
         {
             var articles = _articleService.GetAllArticlesNonDeleted("Category").ToList();
             return Ok(articles);
-        }
+        }        
 
 
 
@@ -56,7 +56,7 @@ namespace MyBlogProject_Backend.Controllers
             {
                 return BadRequest("ID 0'dan küçük olamaz");
             }
-            var article = _articleService.GetById(Id);
+            var article = _articleService.GetById(Id,"Category");
 
             if (article == null)
             {
@@ -132,7 +132,6 @@ namespace MyBlogProject_Backend.Controllers
         }
 
         [HttpDelete("SoftDelete")]
-
         public ActionResult<ArticleGetDto> SoftDelete(int id)
         {
             if (id <= 0)
@@ -154,6 +153,8 @@ namespace MyBlogProject_Backend.Controllers
             return Ok(articleGetDto);
 
         }
+
+       
 
        
 
