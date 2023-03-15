@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Model.Entities
@@ -12,6 +14,9 @@ namespace Model.Entities
        
         public string Name { get; set; }
 
+
+        [JsonIgnore]
+        [IgnoreDataMember]
         public ICollection<Article> Articles { get; set; }
 
 

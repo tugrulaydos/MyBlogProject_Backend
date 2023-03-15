@@ -32,6 +32,14 @@ namespace MyBlogProject_Backend.Controllers
 
         }
 
+        [HttpGet("NonDeleted")]
+        public List<Category> GetAllCategoriesNonDeleted()
+        {
+            var CategoryList = _categoryService.GetAllCategoriesNonDeleted().ToList();
+
+            return CategoryList;
+        }
+
 
         [ProducesResponseType(typeof(Category),StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -85,7 +93,7 @@ namespace MyBlogProject_Backend.Controllers
 
 
         [HttpPut]
-        public ActionResult<CategoryGetDto> UpdateCategory([FromBody]CategoryUpdateDto Dto) 
+        public ActionResult<CategoryGetDto> UpdateCategory(CategoryUpdateDto Dto) 
         {
             if (Dto.ID <= 0)
             {

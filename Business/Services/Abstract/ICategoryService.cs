@@ -23,5 +23,7 @@ namespace Business.Services.Abstract
 
         public void SoftDelete(int Id);
 
+        public IEnumerable<Category> GetAllCategoriesNonDeleted();
+
     }
 }

@@ -14,8 +14,7 @@ namespace Business.AutoMapper
     {
         public CategoryProfile()
         {
-            CreateMap<Category, CategoryGetDto>()
-                .ForMember(dto => dto.CategoryName, entity => entity.MapFrom(x => x.Name));
+            CreateMap<Category, CategoryGetDto>();               
 
             CreateMap<CategoryUpdateDto, Category>();
                 

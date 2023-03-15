@@ -29,6 +29,11 @@ namespace Business.Services.Concrete
             return _categoryDal.GetAll(expression, IncludeList);
         }
 
+        public IEnumerable<Category> GetAllCategoriesNonDeleted()
+        {
+            return GetAllCategories(x => x.IsDeleted==false);
+        }
+
         public Category GetById(int id, params string[] IncludeList)
         {
             return _categoryDal.Get(x=>x.ID==id, IncludeList);

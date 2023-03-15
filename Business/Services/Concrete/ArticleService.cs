@@ -30,6 +30,11 @@ namespace Business.Services.Concrete
             return _articleDal.GetAll(expression, IncludeList);
         }
 
+        public IEnumerable<Article> GetAllArticlesNonDeleted(params string[] inclueList)
+        {
+            return _articleDal.GetAll(x=>x.IsDeleted==false,inclueList);
+        }
+
         public Article GetById(int id, params string[] IncludeLists)
         {
             return _articleDal.Get(x=>x.ID==id, IncludeLists);

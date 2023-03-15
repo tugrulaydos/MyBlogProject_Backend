@@ -59,7 +59,7 @@ namespace Infrastructure.DataAccess.Concrete
 
                 if (expression != null) 
                 {
-                    dbSet.Where(expression);
+                   dbSet = dbSet.Where(expression);
                 }
 
                 if (includeList != null) 

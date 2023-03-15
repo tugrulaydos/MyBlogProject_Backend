@@ -20,9 +20,7 @@ namespace Model.Entities
         public int CategoryId { get; set; }
 
         public int ImageId { get; set; }
-
-
-        public Image Image { get; set; }    
+       
 
         public Category Category { get; set; }
 

@@ -16,6 +16,8 @@ namespace Business.Services.Abstract
 
         public IEnumerable<Article> GetAllArticles(Expression<Func<Article, bool>> expression = null, params string[] IncludeList);
 
+        public IEnumerable<Article> GetAllArticlesNonDeleted(params string[] inclueList);
+
         public Article Insert(Article entity);
 
         public int Update(Article entity);

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Business.Services.Abstract;
+using Business.Services.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -22,17 +23,28 @@ namespace MyBlogProject_Backend.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<ArticleGetDto>> GetAllArticles()
+        public ActionResult<List<Article>> GetAllArticles()
         {
-            List<Article> articles = _articleService.GetAllArticles().ToList();
+            //List<Article> articles = _articleService.GetAllArticles().ToList();
 
-            List<ArticleGetDto> articleGetDto = new List<ArticleGetDto>();
+            //List<ArticleGetDto> articleGetDto = new List<ArticleGetDto>();
             
-            _mapper.Map(articles, articleGetDto);
+            //_mapper.Map(articles, articleGetDto);
 
-            return Ok(articleGetDto);
+            var articles = _articleService.GetAllArticles(null,"Category").ToList();
+
+            return Ok(articles);
             
         }
+
+        [HttpGet("NonDeleted")]
+        public ActionResult<Article> GetAllArticlesNonDeleted()
+        {
+            var articles = _articleService.GetAllArticlesNonDeleted("Category").ToList();
+            return Ok(articles);
+        }
+
+
 
         [ProducesResponseType(typeof(Category), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -142,6 +154,8 @@ namespace MyBlogProject_Backend.Controllers
             return Ok(articleGetDto);
 
         }
+
+       
 
 
 
