@@ -21,5 +21,6 @@ namespace Model.DTOs.Article
         public int ImageId { get; set; }       
 
 
+
     }
 }
