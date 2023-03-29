@@ -14,6 +14,8 @@ namespace Model.DTOs.Article
 
         public string Content { get; set; }
 
+        public string? PhotoPath { get; set; }
+
         public DateTime ModifiedDate { get; set; } = DateTime.Now;
 
         public int CategoryId { get; set; }

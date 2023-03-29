@@ -15,12 +15,13 @@ namespace Model.Entities
 
         public string Content { get; set; }
 
-        public int ViewCount { get; set; } = 0;
+        public int? ViewCount { get; set; } = 0;
 
         public int CategoryId { get; set; }
 
         public int ImageId { get; set; }
        
+        public string? PhotoPath { get; set; }
 
         public Category Category { get; set; }
 

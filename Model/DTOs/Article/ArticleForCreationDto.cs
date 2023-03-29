@@ -13,6 +13,8 @@ namespace Model.DTOs.Article
         
         public int CategoryId { get; set;}
 
+        public string? PhotoPath { get; set; }
+
         public int ImageId { get; set; }
     }
 }
