@@ -18,7 +18,7 @@ namespace Model.DTOs.Article
 
         public string Content { get; set; }
 
-        public string? StringPath { get; set; }
+        public string? PhotoPath { get; set; }
 
         public CategoryGetDto Category { get; set; }
 
