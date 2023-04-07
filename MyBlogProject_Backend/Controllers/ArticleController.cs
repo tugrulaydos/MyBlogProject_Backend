@@ -2,6 +2,7 @@
 using Business.Services.Abstract;
 using Business.Services.Concrete;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Model.DTOs.Article;
@@ -105,6 +106,41 @@ namespace MyBlogProject_Backend.Controllers
             return Ok(UpdateDto);
         }
 
+		[ProducesResponseType(typeof(Category), StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		[HttpPatch("Save")]
+        public ActionResult<ArticleUpdateDto> SaveArticle(int id, JsonPatchDocument<Article> patchDocument) 
+        {
+            if (patchDocument == null)
+            {
+                return BadRequest();
+            }
+
+            if(id <= 0)
+            {
+                return BadRequest("Böyle Bir ID Değeri Olamaz");
+            }
+
+            var SavedArticle = _articleService.GetById(id);
+
+            if (SavedArticle == null)
+            {
+                return NoContent();
+            }
+
+			patchDocument.ApplyTo(SavedArticle, ModelState);
+
+			_articleService.Update(SavedArticle);
+
+			if (ModelState.IsValid)
+				return Ok(SavedArticle);
+
+			return BadRequest();
+
+		}
+
+
 
         [ProducesResponseType(typeof(Category), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -131,27 +167,36 @@ namespace MyBlogProject_Backend.Controllers
             return Ok(articleGetDto);
         }
 
-        [HttpDelete("SoftDelete")]
-        public ActionResult<ArticleGetDto> SoftDelete(int id)
+
+		[ProducesResponseType(typeof(Category), StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		[HttpPatch("SoftDelete")]
+        public IActionResult SoftDeletePatch(int id,JsonPatchDocument<Article> patchDocument) 
         {
-            if (id <= 0)
+            if (patchDocument == null)
             {
-                return BadRequest("ID 0'dan küçük olamaz");
+                return BadRequest();
             }
-           
-            if (_articleService.GetById(id)==null)
+			if (id <= 0)
+			{
+				return BadRequest("ID 0'dan küçük olamaz");
+			}
+
+			var DeletedArticle = _articleService.GetById(id);
+            if(DeletedArticle == null)
             {
                 return NoContent();
             }
 
-            _articleService.SoftDelete(id);
+            patchDocument.ApplyTo(DeletedArticle, ModelState);
 
-            ArticleGetDto articleGetDto = new();
+            _articleService.Update(DeletedArticle);            
 
-            _mapper.Map(_articleService.GetById(id), articleGetDto);
+            if (ModelState.IsValid)
+                return Ok(DeletedArticle);
 
-            return Ok(articleGetDto);
-
+            return BadRequest();
         }
 
        

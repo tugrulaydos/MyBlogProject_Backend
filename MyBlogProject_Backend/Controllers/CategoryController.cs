@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Business.Services.Abstract;
+using Business.Services.Concrete;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Model.DTOs.Category;
@@ -118,7 +120,42 @@ namespace MyBlogProject_Backend.Controllers
 
         }
 
-        [ProducesResponseType(typeof(Category), StatusCodes.Status200OK)]
+
+		[ProducesResponseType(typeof(Category), StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		[HttpPatch("Save")]
+		public IActionResult SavePatch(int id, JsonPatchDocument<Category> patchDocument)
+		{
+			if (patchDocument == null)
+			{
+				return BadRequest();
+			}
+			if (id <= 0)
+			{
+				return BadRequest("ID 0'dan küçük olamaz");
+			}
+
+			var SavedCategory = _categoryService.GetById(id);
+			if (SavedCategory == null)
+			{
+				return NoContent();
+			}
+
+			patchDocument.ApplyTo(SavedCategory, ModelState);
+
+			_categoryService.Update(SavedCategory);
+
+			if (ModelState.IsValid)
+				return Ok(SavedCategory);
+
+			return BadRequest();
+		}
+
+
+
+
+		[ProducesResponseType(typeof(Category), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpDelete("HardDelete")]
@@ -142,27 +179,58 @@ namespace MyBlogProject_Backend.Controllers
 
         }
 
-        [ProducesResponseType(typeof(Category), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [HttpDelete("SoftDelete")]
-        public ActionResult<Category> SoftDeleteCategory(int Id) 
-        {
-            if (Id <= 0)
-            {
-                return BadRequest("Id Değeri Sıfır ve Sıfırdan küçük olamaz");
-            }          
+        //[ProducesResponseType(typeof(Category), StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //[HttpDelete("SoftDelete")]
+        //public ActionResult<Category> SoftDeleteCategory(int Id) 
+        //{
+        //    if (Id <= 0)
+        //    {
+        //        return BadRequest("Id Değeri Sıfır ve Sıfırdan küçük olamaz");
+        //    }          
 
-            else if (_categoryService.GetById(Id) == null)
+        //    else if (_categoryService.GetById(Id) == null)
+        //    {
+        //        return NoContent();
+        //    }
+
+        //    _categoryService.SoftDelete(Id);           
+
+        //    return Ok(_categoryService.GetById(Id));
+
+        //}
+
+		[ProducesResponseType(typeof(Category), StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		[HttpPatch("SoftDelete")]
+		public IActionResult SoftDeletePatch(int id, JsonPatchDocument<Category> patchDocument)
+		{
+			if (patchDocument == null)
+			{
+				return BadRequest();
+			}
+			if (id <= 0)
             {
-                return NoContent();
+				return BadRequest("ID 0'dan küçük olamaz");
+			}
+
+			var DeletedCategory = _categoryService.GetById(id);
+			if (DeletedCategory == null)
+			{
+				return NoContent();
             }
 
-            _categoryService.SoftDelete(Id);           
+			patchDocument.ApplyTo(DeletedCategory, ModelState);
 
-            return Ok(_categoryService.GetById(Id));
+			_categoryService.Update(DeletedCategory);
 
-        }
+			if (ModelState.IsValid)
+				return Ok(DeletedCategory);
 
-    }
+			return BadRequest();
+		}
+
+	}
 }
