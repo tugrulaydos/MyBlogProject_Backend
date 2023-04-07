@@ -49,6 +49,7 @@ namespace Business.Services.Concrete
         {
             var article = GetById(Id);
             article.IsDeleted = true;
+            article.DeletedDate = DateTime.Now;
             _articleDal.Update(article);
         }
 
