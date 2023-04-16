@@ -15,6 +15,6 @@ namespace Model.DTOs.Article
 
         public string? PhotoPath { get; set; }
 
-        public int ImageId { get; set; }
+       
     }
 }

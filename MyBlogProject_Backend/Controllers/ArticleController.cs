@@ -184,10 +184,12 @@ namespace MyBlogProject_Backend.Controllers
 			}
 
 			var DeletedArticle = _articleService.GetById(id);
+            
             if(DeletedArticle == null)
             {
                 return NoContent();
             }
+            DeletedArticle.DeletedDate = DateTime.Now;
 
             patchDocument.ApplyTo(DeletedArticle, ModelState);
 

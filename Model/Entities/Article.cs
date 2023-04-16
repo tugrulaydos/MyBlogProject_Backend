@@ -19,7 +19,7 @@ namespace Model.Entities
 
         public int CategoryId { get; set; }
 
-        public int ImageId { get; set; }
+      
        
         public string? PhotoPath { get; set; }
 

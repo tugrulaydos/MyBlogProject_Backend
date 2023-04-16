@@ -25,14 +25,14 @@ namespace DataAccess.Context
 
             modelBuilder.ApplyConfiguration(new ArticleMap());
 
-            modelBuilder.ApplyConfiguration(new ImageMap());
+           
         }
 
         public DbSet<Category> Categories { get; set; }
 
         public DbSet<Article> Articles { get; set; }
 
-        public DbSet<Image> Images { get; set; }
+     
 
 
     }

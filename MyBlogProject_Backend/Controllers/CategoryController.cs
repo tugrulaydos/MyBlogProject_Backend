@@ -142,6 +142,7 @@ namespace MyBlogProject_Backend.Controllers
 				return NoContent();
 			}
 
+            SavedCategory.DeletedDate = DateTime.Now;
 			patchDocument.ApplyTo(SavedCategory, ModelState);
 
 			_categoryService.Update(SavedCategory);

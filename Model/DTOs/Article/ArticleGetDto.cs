@@ -22,7 +22,7 @@ namespace Model.DTOs.Article
 
         public CategoryGetDto Category { get; set; }
 
-        public int ImageId { get; set; }       
+             
 
 
 
