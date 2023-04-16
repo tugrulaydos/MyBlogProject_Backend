@@ -32,7 +32,7 @@ namespace DataAccess.Mapping
                 "blandit. Nullam lorem dolor, lacinia in varius sed, consequat sollicitudin urna. Nulla facilisi",
 
                 CategoryId = 1,
-                ImageId = 1,
+              
 
 
                 IsDeleted = false
@@ -55,7 +55,7 @@ namespace DataAccess.Mapping
                 " Curabitur porta in lacus id " +
                 "blandit. Nullam lorem dolor, lacinia in varius sed, consequat sollicitudin urna. Nulla facilisi",
 
-                 ImageId = 2,
+             
                  CategoryId = 2,
                  IsDeleted = false
              },
@@ -78,7 +78,7 @@ namespace DataAccess.Mapping
                 " Curabitur porta in lacus id " +
                 "blandit. Nullam lorem dolor, lacinia in varius sed, consequat sollicitudin urna. Nulla facilisi",
 
-                ImageId = 3,
+          
                 CategoryId = 3,
                 IsDeleted = false
             }
