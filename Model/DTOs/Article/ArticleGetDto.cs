@@ -20,6 +20,8 @@ namespace Model.DTOs.Article
 
         public string? PhotoPath { get; set; }
 
+        public DateTime CreatedDate { get; set; }
+
         public CategoryGetDto Category { get; set; }
 
              
