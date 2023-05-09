@@ -14,7 +14,7 @@ namespace DataAccess.Context
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=DESKTOP-D80M3PV;Database=MyBlog;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer("Server=localhost;Database=MyBlog;Trusted_Connection=True;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) 

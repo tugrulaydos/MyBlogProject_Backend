@@ -14,9 +14,7 @@ namespace Model.Entities
        
         public string Name { get; set; }
 
-
-        [JsonIgnore]
-        [IgnoreDataMember]
+       
         public ICollection<Article> Articles { get; set; }
 
 
